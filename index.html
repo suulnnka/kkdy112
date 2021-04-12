@@ -1854,19 +1854,19 @@
     }
   }
 
-  function calc_distance(path){
+  function calc_distance(path) {
     let distance = 0
     let col = 0
     let row = 0
-    for(let p of path){
-      if(p.state == 'appear'){
+    for (let p of path) {
+      if (p.state == 'appear') {
         col = p.col
         row = p.row
       }
-      if(p.state == 'move'){
+      if (p.state == 'move') {
         let col_diff = col - p.col
         let row_diff = row - p.row
-        let d = Math.sqrt( col_diff * col_diff + row_diff * row_diff )
+        let d = Math.sqrt(col_diff * col_diff + row_diff * row_diff)
         distance = distance + d
         col = p.col
         row = p.row
@@ -1875,25 +1875,25 @@
     return distance
   }
 
-  function point_distance(col,row,col2,row2){
+  function point_distance(col, row, col2, row2) {
     let col_diff = col - col2
     let row_diff = row - row2
-    return Math.sqrt( col_diff * col_diff + row_diff * row_diff )
+    return Math.sqrt(col_diff * col_diff + row_diff * row_diff)
   }
 
-  function move_distance(col,row,col2,row2,speed){
-    let distance = point_distance(col,row,col2,row2)
+  function move_distance(col, row, col2, row2, speed) {
+    let distance = point_distance(col, row, col2, row2)
     // TODO make right diff
-    if( speed + 1e-6 > distance ) {
+    if (speed + 1e-6 > distance) {
       return {
-        col:col2,
-        row:row2,
+        col: col2,
+        row: row2,
         distance: distance
       }
     }
     let scale = speed / distance
-    let col_diff = ( col2 - col ) * scale
-    let row_diff = ( row2 - row ) * scale
+    let col_diff = (col2 - col) * scale
+    let row_diff = (row2 - row) * scale
     return {
       col: col + col_diff,
       row: row + row_diff,
@@ -1901,24 +1901,24 @@
     }
   }
 
-  function new_position(){
+  function new_position() {
     let enemys = []
 
-    for(let wave of waves){
+    for (let wave of waves) {
       let enemy = {
-        name : wave.name,
-        attr : enemy_map[wave.name],
-        hp : enemy_map[wave.name].hp,
-        path_num : 0,
-        status : "start",
-        status_frame:0,
-        col : 0,
-        row : 0,
-        path : wave.path,
-        distance : calc_distance(wave.path),
+        name: wave.name,
+        attr: enemy_map[wave.name],
+        hp: enemy_map[wave.name].hp,
+        path_num: 0,
+        status: "start",
+        status_frame: 0,
+        col: 0,
+        row: 0,
+        path: wave.path,
+        distance: calc_distance(wave.path),
         shock: false,
         shock_frame: 0,
-        att_frame : 0
+        att_frame: 0
       }
       enemys.push(enemy)
     }
@@ -1931,43 +1931,43 @@
       kroos_status: 'wait',
       kroos_att_frame: 0,
       kross_search_frame: 0,
-      kross_att_enemy : 0,
+      kross_att_enemy: 0,
     }
   }
 
-  function in_kroos_att_range(col,row){
+  function in_kroos_att_range(col, row) {
     //[3.5,3.5],[3.5,7.5]
     //[0.5,3.5],[0.5,7.5]
-    if( row >= 0.5 && row <= 3.5 ){
-      if( col >= 3.5 && col <= 7.5 ){
+    if (row >= 0.5 && row <= 3.5) {
+      if (col >= 3.5 && col <= 7.5) {
         return true
       }
     }
     return false
   }
 
-  function get_damage( rand, is_skill, def ){
+  function get_damage(rand, is_skill, def) {
     let att = 446 - def
 
     let prob = 0.2
 
-    if(is_skill){
+    if (is_skill) {
       let d = 0
-      if(rand() > prob){
+      if (rand() > prob) {
         d = Math.floor(att * 1.4)
-      }else{
+      } else {
         d = Math.floor(att * 1.4 * 1.6)
       }
-      if(rand() > prob){
+      if (rand() > prob) {
         return d + Math.floor(att * 1.4)
-      }else{
+      } else {
         return d + Math.floor(att * 1.4 * 1.6)
       }
-    }else{
-      if(rand() > prob){
+    } else {
+      if (rand() > prob) {
         return att
-      }else{
-        return Math.floor( att * 1.6 )
+      } else {
+        return Math.floor(att * 1.6)
       }
     }
   }
@@ -1977,35 +1977,35 @@
     let position = new_position()
 
     let position_list = []
-    while(true){
-      position.frame ++
+    while (true) {
+      position.frame++
 
-      if(debug == true){
-        position_list.push( JSON.parse( JSON.stringify( position ) ) )
+      if (debug == true) {
+        position_list.push(JSON.parse(JSON.stringify(position)))
       }
-    
+
       let in_range_enemy = []
       let die_num = 0
-      
+
       // TODO make right frame
-      if(position.frame == 4302){
-        for(let enemy of position.enemys){
-          if(enemy.status == 'die'){
+      if (position.frame == 4302) {
+        for (let enemy of position.enemys) {
+          if (enemy.status == 'die') {
             continue
           }
           let col = enemy.col
           let row = enemy.row
-          if( row >= 0.5 && row <= 3.5 ){
-            if( col >= 3.5 && col <= 6.5 ){
-              if(enemy.status == 'att'){
+          if (row >= 0.5 && row <= 3.5) {
+            if (col >= 3.5 && col <= 6.5) {
+              if (enemy.status == 'att') {
                 enemy.status = 'move'
                 enemy.att_frame = 0
               }
               enemy.shock = true
               enemy.shock_frame = 0
-              let damage = 1000 / 100 * ( 100 - enemy.attr.mdef )
+              let damage = 1000 / 100 * (100 - enemy.attr.mdef)
               enemy.hp = enemy.hp - damage
-              if(enemy.hp <= 0){
+              if (enemy.hp <= 0) {
                 enemy.status = 'die'
               }
             }
@@ -2013,152 +2013,152 @@
         }
       }
 
-      for(let i in position.enemys){
+      for (let i in position.enemys) {
         let enemy = position.enemys[i]
-        if(enemy.status == 'die'){
-          die_num ++
+        if (enemy.status == 'die') {
+          die_num++
           continue
         }
 
-        if(enemy.shock == true){
-          
-          enemy.shock_frame ++
-          if(enemy.shock_frame == 210){
+        if (enemy.shock == true) {
+
+          enemy.shock_frame++
+          if (enemy.shock_frame == 210) {
             enemy.shock = false
           }
 
-        }else{
+        } else {
 
-          enemy.att_frame ++
+          enemy.att_frame++
 
           let need_next_path = false
-          if(enemy.status == 'wait'){
-            enemy.status_frame ++
-            let wait_frame = enemy.path[ enemy.path_num ].time * 30
-            if( enemy.status_frame >= wait_frame){
+          if (enemy.status == 'wait') {
+            enemy.status_frame++
+            let wait_frame = enemy.path[enemy.path_num].time * 30
+            if (enemy.status_frame >= wait_frame) {
               need_next_path = true
             }
-          }else if(enemy.status == 'move'){
+          } else if (enemy.status == 'move') {
             let speed = enemy.attr.speed / 60
             let col_to = enemy.path[enemy.path_num].col
             let row_to = enemy.path[enemy.path_num].row
-            let {col,row,distance} = move_distance(enemy.col,enemy.row,col_to,row_to,speed)
-            if(col_to == col && row_to == row){
+            let { col, row, distance } = move_distance(enemy.col, enemy.row, col_to, row_to, speed)
+            if (col_to == col && row_to == row) {
               need_next_path = true
             }
             enemy.col = col
             enemy.row = row
             enemy.distance = enemy.distance - distance
 
-            if(enemy.name == '投' && enemy.att_frame > 2.2 * 30 && point_distance(enemy.col,enemy.row,7,2) <= 1.75){
+            if (enemy.name == '投' && enemy.att_frame > 2.2 * 30 && point_distance(enemy.col, enemy.row, 7, 2) <= 1.75) {
               enemy.att_frame = 0
               enemy.status = 'att'
             }
 
-          }else if(enemy.status == 'att'){  
-            if(enemy.att_frame == 22){
+          } else if (enemy.status == 'att') {
+            if (enemy.att_frame == 22) {
               let damage = 250 - 126
               position.kroos_hp = position.kroos_hp - damage
-              if(position.kroos_hp <= 0){
-                
+              if (position.kroos_hp <= 0) {
+
                 // console.log(JSON.parse(JSON.stringify(position)))
                 // console.log(seed,die_num)
-                if(debug){
+                if (debug) {
                   return position_list
                 }
                 return false
               }
             }
-            if(enemy.att_frame == 45){
+            if (enemy.att_frame == 45) {
               enemy.status = "move"
             }
-          }else if(enemy.status == 'start'){
+          } else if (enemy.status == 'start') {
             enemy.col = enemy.path[0].col
             enemy.row = enemy.path[0].row
             need_next_path = true
           }
 
-          if(need_next_path == true){
-            while(true){
-              enemy.path_num ++
-              if( enemy.path_num >= enemy.path.length ){
+          if (need_next_path == true) {
+            while (true) {
+              enemy.path_num++
+              if (enemy.path_num >= enemy.path.length) {
                 // console.log(JSON.parse(JSON.stringify(position)))
                 // if(die_num >= 20){console.log(seed,die_num)}
-                if(debug){
+                if (debug) {
                   return position_list
                 }
                 return false
               }
-              let next_path = enemy.path[ enemy.path_num ]
+              let next_path = enemy.path[enemy.path_num]
 
-              if(next_path.state == 'appear'){
+              if (next_path.state == 'appear') {
                 enemy.col = next_path.col
                 enemy.row = next_path.row
               }
 
-              if(next_path.state == 'move'){
+              if (next_path.state == 'move') {
                 enemy.status = 'move'
                 break
               }
 
-              if(next_path.state == 'wait'){
+              if (next_path.state == 'wait') {
                 enemy.status = 'wait'
                 enemy.status_frame = 0
                 break
               }
             }
-            
+
           }
 
         }
 
-        if(in_kroos_att_range(enemy.col,enemy.row) == true){
+        if (in_kroos_att_range(enemy.col, enemy.row) == true) {
           in_range_enemy.push(i)
         }
       }
 
-      if(position.kroos_status == 'att'){
-        position.kroos_att_frame ++
-        if(position.kroos_att_frame == 14){
+      if (position.kroos_status == 'att') {
+        position.kroos_att_frame++
+        if (position.kroos_att_frame == 14) {
           let is_skill = false
-          if(position.kroos_mp == 4){
+          if (position.kroos_mp == 4) {
             is_skill = true
             position.kroos_mp = 0
-          }else{
-            position.kroos_mp ++
+          } else {
+            position.kroos_mp++
           }
 
-          let enemy = position.enemys[ position.kross_att_enemy ]
+          let enemy = position.enemys[position.kross_att_enemy]
           let def = enemy.attr.def
 
-          let damage = get_damage( rand, is_skill, def )
+          let damage = get_damage(rand, is_skill, def)
 
           enemy.hp = enemy.hp - damage
-          if( enemy.hp <= 0 ){
+          if (enemy.hp <= 0) {
             enemy.status = 'die'
           }
         }
-        if(position.kroos_att_frame == 30){
+        if (position.kroos_att_frame == 30) {
           position.kroos_status = 'wait'
-          if(in_range_enemy.length > 0){
+          if (in_range_enemy.length > 0) {
             position.kross_search_frame = 2
-          }else{
+          } else {
             position.kross_search_frame = -1
           }
           position.kroos_att_frame = 0
         }
       }
 
-      if(position.kroos_status == 'wait'){
-        position.kross_search_frame ++
-        if(position.kross_search_frame == 3){
-          if(in_range_enemy.length > 0){
+      if (position.kroos_status == 'wait') {
+        position.kross_search_frame++
+        if (position.kross_search_frame == 3) {
+          if (in_range_enemy.length > 0) {
 
             let id = in_range_enemy[0]
-            for(let i of in_range_enemy){
+            for (let i of in_range_enemy) {
               let old_dis = position.enemys[id].distance
               let new_dis = position.enemys[i].distance
-              if(new_dis <= old_dis){
+              if (new_dis <= old_dis) {
                 id = i
               }
             }
@@ -2167,14 +2167,14 @@
             position.kroos_status = 'att'
             position.kroos_att_frame = 0
             position.kross_search_frame = 0
-          }else{
+          } else {
             position.kross_search_frame = 0
           }
         }
       }
 
-      if(die_num == 30){
-        if(debug){
+      if (die_num == 30) {
+        if (debug) {
           return position_list
         }
         return true
@@ -2182,9 +2182,9 @@
     }
   }
 
-  function wait(){
-    return new Promise((resolve)=>{
-      setTimeout(resolve,0)
+  function wait() {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 0)
     })
   }
 
@@ -2271,37 +2271,38 @@
 
   // main()
 
-  async function draw(position_list){
+  async function draw(position_list) {
     let ctx = document.getElementById('canvas').getContext("2d")
-    
-    function update(position){
-      ctx.fillStyle="#fff"
-      ctx.fillRect(0,0,1100,800)
-      
+
+    function update(position) {
+      ctx.fillStyle = "#fff"
+      ctx.fillRect(0, 0, 1100, 800)
+
       {
-        ctx.fillStyle="#fcf1c1"
-        ctx.fillRect( 400,400,400,300 )
+        ctx.fillStyle = "#fcf1c1"
+        ctx.fillRect(400, 400, 400, 300)
 
         let x = 7 * 100 + 50
         let y = 750 - 2 * 100
-        let red = [255,69,0]
-        let green = [202,255,112]
+        let red = [255, 69, 0]
+        let green = [202, 255, 112]
 
-        let hp_percent = 1 - ( position.kroos_hp / kroos_hp )
-        let r = Math.round( ( red[0] - green[0] ) * hp_percent + green[0])
-        let g = Math.round( ( red[1] - green[1] ) * hp_percent + green[1])
-        let b = Math.round( ( red[2] - green[2] ) * hp_percent + green[2])
-        ctx.fillStyle= "rgb("+r+","+g+","+b+")"
-        ctx.arc(x, y, 20 , 0 , Math.PI * 2,true)
+        let hp_percent = 1 - (position.kroos_hp / kroos_hp)
+        let r = Math.round((red[0] - green[0]) * hp_percent + green[0])
+        let g = Math.round((red[1] - green[1]) * hp_percent + green[1])
+        let b = Math.round((red[2] - green[2]) * hp_percent + green[2])
+        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")"
+        ctx.arc(x, y, 20, 0, Math.PI * 2, true)
         ctx.fill()
 
-        ctx.fillStyle= '#000'
+        ctx.fillStyle = '#000'
         let text = ctx.measureText('kkdy')
-        ctx.fillText( 'kkdy' , x - text.width / 2 , y + 4)
+        ctx.fillText('kkdy', x - text.width / 2, y + 4)
       }
-      
-      for( let enemy of position.enemys ){
-        if(enemy.status == 'die'){
+
+      for (let i in position.enemys) {
+        let enemy = position.enemys[i]
+        if (enemy.status == 'die') {
           continue
         }
         let col = enemy.col
@@ -2312,33 +2313,33 @@
 
         ctx.beginPath();
 
-        let red = [255,69,0]
-        let green = [202,255,112]
+        let red = [255, 69, 0]
+        let green = [202, 255, 112]
 
-        let hp_percent = 1 - ( enemy.hp / enemy.attr.hp )
-        let r = Math.round( ( red[0] - green[0] ) * hp_percent + green[0])
-        let g = Math.round( ( red[1] - green[1] ) * hp_percent + green[1])
-        let b = Math.round( ( red[2] - green[2] ) * hp_percent + green[2])
-        ctx.fillStyle= "rgb("+r+","+g+","+b+")"
-        ctx.arc(x, y, 20 , 0 , Math.PI * 2,true)
+        let hp_percent = 1 - (enemy.hp / enemy.attr.hp)
+        let r = Math.round((red[0] - green[0]) * hp_percent + green[0])
+        let g = Math.round((red[1] - green[1]) * hp_percent + green[1])
+        let b = Math.round((red[2] - green[2]) * hp_percent + green[2])
+        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")"
+        ctx.arc(x, y, 20, 0, Math.PI * 2, true)
         ctx.fill()
 
-        ctx.fillStyle= '#000'
-        let text = ctx.measureText(enemy.name)
-        ctx.fillText(enemy.name, x - text.width / 2 , y + 4)
+        ctx.fillStyle = '#000'
+        let text = ctx.measureText(i + ' ' + enemy.name)
+        ctx.fillText(i + ' ' + enemy.name, x - text.width / 2, y + 4)
       }
     }
 
-    function tick(){
+    function tick() {
       return new Promise((resolve) => {
-        window.requestAnimationFrame(()=>{
+        window.requestAnimationFrame(() => {
           resolve()
         })
       })
     }
 
-    for( let frame in position_list ){
-      if(frame < 2400){
+    for (let frame in position_list) {
+      if (frame < 2400) {
         continue
       }
       update(position_list[frame])
@@ -2349,10 +2350,10 @@
     }
   }
 
-  let random_seed = Math.floor( Math.random() * Math.pow(2,32) )
-  print("seed:"+random_seed)
+  let random_seed = Math.floor(Math.random() * Math.pow(2, 32))
+  print("seed:" + random_seed)
 
-  let list = simulate_seed( 3499075187, true )
+  let list = simulate_seed(3499075187, true)
   draw(list)
 
   // simulate( 0 , 2000 )
