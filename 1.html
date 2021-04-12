@@ -1,0 +1,2322 @@
+<script src="http://cdn.jsdelivr.net/npm/leancloud-storage@4.10.1/dist/av-min.js"></script>
+
+<canvas id="canvas" width="1100" height="800"></canvas>
+<div id="print"></div>
+
+<script>
+
+  AV.init({
+    appId: "7IFiKzTRHrt3itysVixtndO0-gzGzoHsz",
+    appKey: "svrXhfzFK8lchNFbpWlrwg4v",
+    serverURL: "https://7ifikztr.lc-cn-n1-shared.com"
+  });
+
+  let waves = [
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 1
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 15
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 35
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 7,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 20
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 40
+        },
+        {
+          "state": "appear",
+          "col": 3,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "wait",
+          "time": 20
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "w"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 8
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 17
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 20
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 28
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 36
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 40
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 48
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 48
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 55
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 58
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "dun"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 58.7
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 62
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 0,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 64
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 2,
+          "row": 6
+        },
+        {
+          "state": "wait",
+          "time": 3
+        },
+        {
+          "state": "appear",
+          "col": 5,
+          "row": 6
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 5.99
+        },
+        {
+          "state": "move",
+          "col": 6.15,
+          "row": 1.01
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 82
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "tou"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 87
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 88
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 94
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 100
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 101
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 104
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 114
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 106
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 109
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 111
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "shuang"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 124
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "tou"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 132
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "dun"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 132
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "liu"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 8,
+          "row": 5
+        },
+        {
+          "state": "wait",
+          "time": 134
+        },
+        {
+          "state": "move",
+          "col": 6.24,
+          "row": 5
+        },
+        {
+          "state": "move",
+          "col": 6.22,
+          "row": 0.98
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 8,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 2
+        },
+        {
+          "state": "move",
+          "col": 9,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 10,
+          "row": 3
+        }
+      ],
+      "name": "go"
+    },
+    {
+      "path": [
+        {
+          "state": "appear",
+          "col": 6,
+          "row": 7
+        },
+        {
+          "state": "wait",
+          "time": 144
+        },
+        {
+          "state": "move",
+          "col": 5.85,
+          "row": 6.88
+        },
+        {
+          "state": "move",
+          "col": 5.86,
+          "row": 0.99
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 4,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "state": "move",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "state": "move",
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "name": "tou"
+    }
+  ]
+
+  let enemy_map = {
+    "w": {
+      hp: 10000,
+      def: 100,
+      speed: 1.2,
+      mdef: 50
+    },
+    "go": {
+      hp: 1700,
+      def: 0,
+      speed: 1.9,
+      mdef: 20
+    },
+    "shuang": {
+      hp: 2000,
+      def: 100,
+      speed: 1.1,
+      mdef: 0
+    },
+    "tou": {
+      hp: 2000,
+      def: 85,
+      speed: 1,
+      mdef: 0,
+      att: 250 - 126,
+      att_interval: 2.2,
+      range: 1.75,
+      att_frame: 45,
+      att_before_frame: 22,
+      att_time: 1.5
+    },
+    "dun": {
+      hp: 2050,
+      def: 240,
+      speed: 1,
+      mdef: 0
+    },
+    "liu": {
+      hp: 5000,
+      def: 50,
+      speed: 0.8,
+      mdef: 20
+    }
+  }
+
+  let kroos_hp = 1060
+
+  // i从0开始, [ , )
+  function get_range(i) {
+    let seed_max = Math.pow(2, 32) - 1
+    let step = Math.ceil(seed_max / 1000)
+    let pow_31 = Math.pow(2, 31)
+
+    let min = i * step
+    let max = (i + 1) * step
+    if (min > seed_max) {
+      min = seed_max + 1
+    }
+    if (max > seed_max) {
+      max = seed_max + 1
+    }
+    min = min - pow_31
+    max = max - pow_31
+    return { min, max }
+  }
+
+  function padding(num) {
+    return ("0" + num).substr(-2);
+  }
+
+  function print(str) {
+    let pos = document.querySelector('#print');
+    if (pos.childNodes && pos.childNodes.length > 30) {
+      pos.removeChild(pos.childNodes[0])
+    }
+    let node = document.createElement('div')
+    let now = new Date()
+    let hour = padding(now.getHours())
+    let min = padding(now.getMinutes())
+    let sec = padding(now.getSeconds())
+    str = hour + ':' + min + ':' + sec + ' ' + str
+    let text_node = document.createTextNode(str)
+    node.appendChild(text_node)
+    pos.appendChild(node)
+  }
+
+  function random(seed) {
+    let MBIG = 2147483647;
+    let MSEED = 161803398;
+
+    let Int32_min = -2147483648;
+    let Int32_max = 2147483647;
+
+    let inext = 0;
+    let inextp = 0;
+    let SeedArray = new Array(56);
+
+    function InternalSample() {
+      let retVal;
+      let locINext = inext;
+      let locINextp = inextp;
+
+      if (++locINext >= 56) locINext = 1;
+      if (++locINextp >= 56) locINextp = 1;
+
+      retVal = SeedArray[locINext] - SeedArray[locINextp];
+
+      if (retVal == MBIG) retVal--;
+      if (retVal < 0) retVal += MBIG;
+
+      SeedArray[locINext] = retVal;
+
+      inext = locINext;
+      inextp = locINextp;
+
+      return retVal;
+    }
+
+    function init(Seed) {
+      let ii;
+      let mj, mk;
+
+      //Initialize our Seed array.
+      //This algorithm comes from Numerical Recipes in C (2nd Ed.)
+      let subtraction = (Seed == Int32_min) ? Int32_max : Math.abs(Seed);
+      mj = MSEED - subtraction;
+      SeedArray = new Array(56);
+      SeedArray[55] = mj;
+      mk = 1;
+      for (let i = 1; i < 55; i++) {
+        //Apparently the range [1..55] is special (Knuth) and so we're wasting the 0'th position.
+        ii = (21 * i) % 55;
+        SeedArray[ii] = mk;
+        mk = mj - mk;
+        if (mk < 0) mk += MBIG;
+        mj = SeedArray[ii];
+      }
+      for (let k = 1; k < 5; k++) {
+        for (let i = 1; i < 56; i++) {
+          SeedArray[i] -= SeedArray[1 + (i + 30) % 55];
+          if (SeedArray[i] < 0) SeedArray[i] += MBIG;
+        }
+      }
+      inext = 0;
+      inextp = 21;
+      Seed = 1;
+    }
+
+    init(seed);
+
+    return function () {
+      //Including this division at the end gives us significantly improved
+      //random number distribution.
+      return (InternalSample() * (1.0 / MBIG));
+    }
+  }
+
+  function calc_distance(path){
+    let distance = 0
+    let col = 0
+    let row = 0
+    for(let p of path){
+      if(p.state == 'appear'){
+        col = p.col
+        row = p.row
+      }
+      if(p.state == 'move'){
+        let col_diff = col - p.col
+        let row_diff = row - p.row
+        let d = Math.sqrt( col_diff * col_diff + row_diff * row_diff )
+        distance = distance + d
+        col = p.col
+        row = p.row
+      }
+    }
+    return distance
+  }
+
+  function point_distance(col,row,col2,row2){
+    let col_diff = col - col2
+    let row_diff = row - row2
+    return Math.sqrt( col_diff * col_diff + row_diff * row_diff )
+  }
+
+  function move_distance(col,row,col2,row2,speed){
+    let distance = point_distance(col,row,col2,row2)
+    // TODO make right diff
+    if( speed + 1e-6 > distance ) {
+      return {
+        col:col2,
+        row:row2,
+        distance: distance
+      }
+    }
+    let scale = speed / distance
+    let col_diff = ( col2 - col ) * scale
+    let row_diff = ( row2 - row ) * scale
+    return {
+      col: col + col_diff,
+      row: row + row_diff,
+      distance: speed
+    }
+  }
+
+  function new_position(){
+    let enemys = []
+
+    for(let wave of waves){
+      let enemy = {
+        name : wave.name,
+        attr : enemy_map[wave.name],
+        hp : enemy_map[wave.name].hp,
+        path_num : 0,
+        status : "start",
+        status_frame:0,
+        col : 0,
+        row : 0,
+        path : wave.path,
+        distance : calc_distance(wave.path),
+        shock: false,
+        shock_frame: 0,
+        att_frame : 0
+      }
+      enemys.push(enemy)
+    }
+
+    return {
+      frame: 0,
+      enemys: enemys,
+      kroos_hp: kroos_hp,
+      kroos_mp: 0,
+      kroos_status: 'wait',
+      kroos_att_frame: 0,
+      kross_search_frame: 0,
+      kross_att_enemy : 0,
+    }
+  }
+
+  function in_kroos_att_range(col,row){
+    //[3.5,3.5],[3.5,7.5]
+    //[0.5,3.5],[0.5,7.5]
+    if( row >= 0.5 && row <= 3.5 ){
+      if( col >= 3.5 && col <= 7.5 ){
+        return true
+      }
+    }
+    return false
+  }
+
+  function get_damage( rand, is_skill, def ){
+    let att = 446 - def
+
+    if(is_skill){
+      let d = 0
+      if(rand() > 0.2){
+        d = Math.floor(att * 1.4)
+      }else{
+        d = Math.floor(att * 1.4 * 1.6)
+      }
+      if(rand() > 0.2){
+        return d + Math.floor(att * 1.4)
+      }else{
+        return d + Math.floor(att * 1.4 * 1.6)
+      }
+    }else{
+      if(rand() > 0.2){
+        return att
+      }else{
+        return Math.floor( att * 1.6 )
+      }
+    }
+  }
+
+  function simulate_seed(seed, debug) {
+    let rand = random(seed)
+    let position = new_position()
+
+    let position_list = []
+    while(true){
+      position.frame ++
+
+      if(debug == true){
+        position_list.push( JSON.parse( JSON.stringify( position ) ) )
+      }
+    
+      let in_range_enemy = []
+      let die_num = 0
+      
+      // TODO make right frame
+      if(position.frame == 4302){
+        for(let enemy of position.enemys){
+          if(enemy.status == 'die'){
+            continue
+          }
+          let col = enemy.col
+          let row = enemy.row
+          if( row >= 0.5 && row <= 3.5 ){
+            if( col >= 3.5 && col <= 6.5 ){
+              if(enemy.status == 'att'){
+                enemy.status = 'move'
+                enemy.att_frame = 0
+              }
+              enemy.shock = true
+              enemy.shock_frame = 0
+              let damage = 1000 / 100 * ( 100 - enemy.attr.mdef )
+              enemy.hp = enemy.hp - damage
+              if(enemy.hp <= 0){
+                enemy.status = 'die'
+              }
+            }
+          }
+        }
+      }
+
+      for(let i in position.enemys){
+        let enemy = position.enemys[i]
+        if(enemy.status == 'die'){
+          die_num ++
+          continue
+        }
+
+        if(enemy.shock == true){
+          
+          enemy.shock_frame ++
+          if(enemy.shock_frame == 210){
+            enemy.shock = false
+          }
+
+        }else{
+
+          enemy.att_frame ++
+
+          let need_next_path = false
+          if(enemy.status == 'wait'){
+            enemy.status_frame ++
+            let wait_frame = enemy.path[ enemy.path_num ].time * 30
+            if( enemy.status_frame >= wait_frame){
+              need_next_path = true
+            }
+          }else if(enemy.status == 'move'){
+            let speed = enemy.attr.speed / 60
+            let col_to = enemy.path[enemy.path_num].col
+            let row_to = enemy.path[enemy.path_num].row
+            let {col,row,distance} = move_distance(enemy.col,enemy.row,col_to,row_to,speed)
+            if(col_to == col && row_to == row){
+              need_next_path = true
+            }
+            enemy.col = col
+            enemy.row = row
+            enemy.distance = enemy.distance - distance
+
+            if(enemy.name == 'tou' && enemy.att_frame > 2.2 * 30 && point_distance(enemy.col,enemy.row,7,2) <= 1.75){
+              enemy.att_frame = 0
+              enemy.status = 'att'
+            }
+
+          }else if(enemy.status == 'att'){  
+            if(enemy.att_frame == 22){
+              let damage = 250 - 126
+              position.kroos_hp = position.kroos_hp - damage
+              if(position.kroos_hp <= 0){
+                
+                // console.log(JSON.parse(JSON.stringify(position)))
+                // console.log(seed,die_num)
+                if(debug){
+                  return position_list
+                }
+                return false
+              }
+            }
+            if(enemy.att_frame == 45){
+              enemy.status = "move"
+            }
+          }else if(enemy.status == 'start'){
+            enemy.col = enemy.path[0].col
+            enemy.row = enemy.path[0].row
+            need_next_path = true
+          }
+
+          if(need_next_path == true){
+            while(true){
+              enemy.path_num ++
+              if( enemy.path_num >= enemy.path.length ){
+                // console.log(JSON.parse(JSON.stringify(position)))
+                // if(die_num >= 20){console.log(seed,die_num)}
+                if(debug){
+                  return position_list
+                }
+                return false
+              }
+              let next_path = enemy.path[ enemy.path_num ]
+
+              if(next_path.state == 'appear'){
+                enemy.col = next_path.col
+                enemy.row = next_path.row
+              }
+
+              if(next_path.state == 'move'){
+                enemy.status = 'move'
+                break
+              }
+
+              if(next_path.state == 'wait'){
+                enemy.status = 'wait'
+                enemy.status_frame = 0
+                break
+              }
+            }
+            
+          }
+
+        }
+
+        if(in_kroos_att_range(enemy.col,enemy.row) == true){
+          in_range_enemy.push(i)
+        }
+      }
+
+      if(position.kroos_status == 'att'){
+        position.kroos_att_frame ++
+        if(position.kroos_att_frame == 14){
+          let is_skill = false
+          if(position.kroos_mp == 4){
+            is_skill = true
+            position.kroos_mp = 0
+          }else{
+            position.kroos_mp ++
+          }
+
+          let enemy = position.enemys[ position.kross_att_enemy ]
+          let def = enemy.attr.def
+
+          let damage = get_damage( rand, is_skill, def )
+
+          enemy.hp = enemy.hp - damage
+          if( enemy.hp <= 0 ){
+            enemy.status = 'die'
+          }
+        }
+        if(position.kroos_att_frame == 30){
+          position.kroos_status = 'wait'
+          if(in_range_enemy.length > 0){
+            position.kross_search_frame = 2
+          }else{
+            position.kross_search_frame = -1
+          }
+          position.kroos_att_frame = 0
+        }
+      }
+
+      if(position.kroos_status == 'wait'){
+        position.kross_search_frame ++
+        if(position.kross_search_frame == 3){
+          if(in_range_enemy.length > 0){
+
+            let id = in_range_enemy[0]
+            for(let i of in_range_enemy){
+              let old_dis = position.enemys[id].distance
+              let new_dis = position.enemys[i].distance
+              if(new_dis <= old_dis){
+                id = i
+              }
+            }
+            position.kross_att_enemy = id
+
+            position.kroos_status = 'att'
+            position.kroos_att_frame = 0
+            position.kross_search_frame = 0
+          }else{
+            position.kross_search_frame = 0
+          }
+        }
+      }
+
+      if(die_num == 30){
+        if(debug){
+          return position_list
+        }
+        return true
+      }
+    }
+  }
+
+  function wait(){
+    return new Promise((resolve)=>{
+      setTimeout(resolve,0)
+    })
+  }
+
+  async function simulate(min, max) {
+    max = max || (min + 1)
+    let start = new Date().getTime()
+    print("本轮计算开始")
+    await wait()
+    let results = []
+    let last_percent = 0
+    for (let seed = min; seed < max; seed++) {
+      let result = await simulate_seed(seed)
+      if (result == true) {
+        print("寻找到种子: " + seed)
+        await wait()
+        results.push(seed)
+      }
+      let percent = Math.floor((seed - min + 1) / (max - min) * 100)
+      if (percent != last_percent) {
+        last_percent = percent
+        print("当前区块进度:" + percent + "%")
+        await wait()
+      }
+    }
+    let end = new Date().getTime()
+    let diff = Math.floor((end - start) / 1000)
+    print("本轮计算完成,共用时： " + diff + "秒")
+    await wait()
+    return results
+  }
+
+  async function main() {
+    print("开始初始化...")
+    while (true) {
+      let range
+      try {
+        print("获取数据...")
+        let query = new AV.Query('range');
+        query.limit(1000)
+        range = await query.find()
+      } catch (err) {
+        print("获取数据出错,退出执行")
+        return
+      }
+      let todo = []
+      for (let i in range) {
+        if (range[i].get("done") == false) {
+          todo.push(i)
+        }
+      }
+
+      print("已完成" + (1000 - todo.length) + "块,共1000块")
+
+      if (todo.length == 0) {
+        print("已全部计算完毕,退出执行")
+        return
+      }
+
+      let random_task = todo[Math.floor(Math.random() * todo.length)]
+
+      print("正在计算第" + (random_task + 1) + "块")
+      await wait()
+
+      let { min, max } = get_range(random_task)
+      let result = await simulate(min, max)
+
+      let obj = range[random_task]
+      obj.set("done", true)
+
+      let data = new AV.Object('data')
+      data.set("number", random_task)
+      data.set("data", JSON.stringify(result))
+
+      try {
+        print("正在上传数据")
+        await obj.save()
+        await data.save()
+      } catch {
+        print("保存失败，退出执行")
+      }
+
+    }
+  }
+
+  // main()
+
+  async function draw(position_list){
+    let canvas = document.getElementById('canvas').getContext("2d")
+
+    let frame = -1
+    
+    function update(){
+      frame ++
+      if(frame % 2 == 1){
+        return window.requestAnimationFrame(update)
+      }
+
+      let now_frame = frame / 2
+
+      let position = position_list[now_frame]
+
+      canvas.fillStyle="#fff"
+      canvas.fillRect(0,0,1100,800)
+      
+      canvas.fillStyle="#000"
+      canvas.fillRect(0,0,now_frame,now_frame)
+
+      now_frame ++
+      if(now_frame < position_list.length){
+        window.requestAnimationFrame(update)
+      }
+    }
+
+    window.requestAnimationFrame(update)
+    
+
+    requestAnimationFrame(async function update(t){
+  //await traffic.while('stop')
+  await traffic.until('pass')
+  block.style.left = parseInt(block.style.left || 50) + 1 + 'px'
+  requestAnimationFrame(update)
+})
+
+  }
+
+  let list = simulate_seed(136251633,true)
+  draw(list)
+
+</script>
+
+<style>
+  body {
+    background: #000;
+    color: #fff;
+    word-break: break-all;
+  }
+</style>
