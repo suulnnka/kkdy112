@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.10.1/dist/av-min.js"></script>
 
-<canvas id="canvas" width="1100" height="800"></canvas>
 <div id="print"></div>
+<canvas id="canvas" width="1100" height="800"></canvas>
 
 <script>
 
@@ -1783,7 +1783,12 @@
     pos.appendChild(node)
   }
 
+  let random_times = 0
+
   function random(seed) {
+
+    random_times = 0
+
     let MBIG = 2147483647;
     let MSEED = 161803398;
 
@@ -1848,6 +1853,9 @@
     init(seed);
 
     return function () {
+
+      random_times ++ 
+
       //Including this division at the end gives us significantly improved
       //random number distribution.
       return (InternalSample() * (1.0 / MBIG));
@@ -1988,7 +1996,7 @@
       let die_num = 0
 
       // TODO make right frame
-      if (position.frame == 4302) {
+      if (position.frame == 3620) {
         for (let enemy of position.enemys) {
           if (enemy.status == 'die') {
             continue
@@ -2060,9 +2068,6 @@
               let damage = 250 - 126
               position.kroos_hp = position.kroos_hp - damage
               if (position.kroos_hp <= 0) {
-
-                // console.log(JSON.parse(JSON.stringify(position)))
-                // console.log(seed,die_num)
                 if (debug) {
                   return position_list
                 }
@@ -2082,8 +2087,6 @@
             while (true) {
               enemy.path_num++
               if (enemy.path_num >= enemy.path.length) {
-                // console.log(JSON.parse(JSON.stringify(position)))
-                // if(die_num >= 20){console.log(seed,die_num)}
                 if (debug) {
                   return position_list
                 }
@@ -2119,6 +2122,13 @@
 
       if (position.kroos_status == 'att') {
         position.kroos_att_frame++
+
+        let enemy = position.enemys[position.kross_att_enemy]
+
+        if (enemy.status == 'die'){
+          position.kroos_att_frame = 30
+        }
+
         if (position.kroos_att_frame == 14) {
           let is_skill = false
           if (position.kroos_mp == 4) {
@@ -2128,7 +2138,6 @@
             position.kroos_mp++
           }
 
-          let enemy = position.enemys[position.kross_att_enemy]
           let def = enemy.attr.def
 
           let damage = get_damage(rand, is_skill, def)
@@ -2205,7 +2214,7 @@
       let percent = Math.floor((seed - min + 1) / (max - min) * 100)
       if (percent != last_percent) {
         last_percent = percent
-        print("当前区块进度:" + percent + "%")
+        print("当前区块进度:" + ( percent/1 ) + "%")
         await wait()
       }
     }
@@ -2348,12 +2357,10 @@
   }
 
   let random_seed = Math.floor(Math.random() * Math.pow(2, 32))
-  print("seed:" + random_seed)
+  // print("seed:" + random_seed)
 
-  let list = simulate_seed(random_seed, true)
-  draw(list)
-
-  // simulate( 0 , 2000 )
+  // draw(simulate_seed(random_seed, true))
+  simulate( random_seed , random_seed + 10000 )
 
 </script>
 
