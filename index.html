@@ -2270,42 +2270,56 @@
   // main()
 
   async function draw(position_list){
-    let canvas = document.getElementById('canvas').getContext("2d")
-
-    let frame = -1
+    let ctx = document.getElementById('canvas').getContext("2d")
     
-    function update(){
-      frame ++
-      if(frame % 2 == 1){
-        return window.requestAnimationFrame(update)
-      }
-
-      let now_frame = frame / 2
-
-      let position = position_list[now_frame]
-
-      canvas.fillStyle="#fff"
-      canvas.fillRect(0,0,1100,800)
+    function update(position){
+      ctx.fillStyle="#fff"
+      ctx.fillRect(0,0,1100,800)
       
-      canvas.fillStyle="#000"
-      canvas.fillRect(0,0,now_frame,now_frame)
+      for( let enemy of position.enemys ){
+        if(enemy.status == 'die'){
+          continue
+        }
+        let col = enemy.col
+        let row = enemy.row
 
-      now_frame ++
-      if(now_frame < position_list.length){
-        window.requestAnimationFrame(update)
+        let x = col * 100 + 50
+        let y = 750 - row * 100
+
+        ctx.beginPath();
+
+        let red = [255,69,0]
+        let green = [202,255,112]
+
+        let hp_percent = enemy.hp / enemy.attr.hp
+        let r = Math.round( ( green[0] - red[0] ) * hp_percent + green[0])
+        let g = Math.round( ( green[1] - red[1] ) * hp_percent + green[1])
+        let b = Math.round( ( green[2] - red[2] ) * hp_percent + green[2])
+        ctx.fillStyle= "rgb("+r+","+g+","+b+")"
+        ctx.arc(x, y, 20 , 0 , Math.PI * 2,true)
+        ctx.fill()
+
+
+        ctx.fillStyle= '#000'
+        let text = ctx.measureText(enemy.name)
+        ctx.fillText(enemy.name, x - text.width / 2 , y + 4)
+        console.log(text)
       }
     }
 
-    window.requestAnimationFrame(update)
-    
+    function tick(){
+      return new Promise((resolve) => {
+        window.requestAnimationFrame(()=>{
+          resolve()
+        })
+      })
+    }
 
-    requestAnimationFrame(async function update(t){
-  //await traffic.while('stop')
-  await traffic.until('pass')
-  block.style.left = parseInt(block.style.left || 50) + 1 + 'px'
-  requestAnimationFrame(update)
-})
-
+    for( let position of position_list ){
+      update(position)
+      await tick()
+      // await tick()
+    }
   }
 
   let list = simulate_seed(136251633,true)
