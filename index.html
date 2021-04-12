@@ -1854,7 +1854,7 @@
 
     return function () {
 
-      random_times ++ 
+      random_times++
 
       //Including this division at the end gives us significantly improved
       //random number distribution.
@@ -2125,7 +2125,7 @@
 
         let enemy = position.enemys[position.kross_att_enemy]
 
-        if (enemy.status == 'die'){
+        if (enemy.status == 'die') {
           position.kroos_att_frame = 30
         }
 
@@ -2214,7 +2214,7 @@
       let percent = Math.floor((seed - min + 1) / (max - min) * 100)
       if (percent != last_percent) {
         last_percent = percent
-        print("当前区块进度:" + ( percent/1 ) + "%")
+        print("当前区块进度:" + (percent / 1) + "%")
         await wait()
       }
     }
@@ -2357,10 +2357,10 @@
   }
 
   let random_seed = Math.floor(Math.random() * Math.pow(2, 32))
-  // print("seed:" + random_seed)
+  console.log("seed:", random_seed)
 
-  // draw(simulate_seed(random_seed, true))
-  simulate( random_seed , random_seed + 10000 )
+  draw(simulate_seed(random_seed, true))
+  // simulate( random_seed , random_seed + 10000 )
 
 </script>
 
