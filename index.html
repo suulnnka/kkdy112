@@ -104,7 +104,7 @@
           "row": 1
         }
       ],
-      "name": "w"
+      "name": "W"
     },
     {
       "path": [
@@ -177,7 +177,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -250,7 +250,7 @@
           "row": 1
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -323,7 +323,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -396,7 +396,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -445,7 +445,7 @@
           "row": 1
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -494,7 +494,7 @@
           "row": 1
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -543,7 +543,7 @@
           "row": 1
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -592,7 +592,7 @@
           "row": 1
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -641,7 +641,7 @@
           "row": 1
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -763,7 +763,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -836,7 +836,7 @@
           "row": 3
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -909,7 +909,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -958,7 +958,7 @@
           "row": 3
         }
       ],
-      "name": "tou"
+      "name": "投"
     },
     {
       "path": [
@@ -1007,7 +1007,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -1056,7 +1056,7 @@
           "row": 3
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -1105,7 +1105,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -1154,7 +1154,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -1203,7 +1203,7 @@
           "row": 3
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -1252,7 +1252,7 @@
           "row": 3
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -1301,7 +1301,7 @@
           "row": 1
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -1350,7 +1350,7 @@
           "row": 1
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -1399,7 +1399,7 @@
           "row": 1
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -1448,7 +1448,7 @@
           "row": 1
         }
       ],
-      "name": "shuang"
+      "name": "双"
     },
     {
       "path": [
@@ -1497,7 +1497,7 @@
           "row": 1
         }
       ],
-      "name": "tou"
+      "name": "投"
     },
     {
       "path": [
@@ -1595,7 +1595,7 @@
           "row": 3
         }
       ],
-      "name": "liu"
+      "name": "流"
     },
     {
       "path": [
@@ -1644,7 +1644,7 @@
           "row": 3
         }
       ],
-      "name": "go"
+      "name": "狗"
     },
     {
       "path": [
@@ -1693,30 +1693,30 @@
           "row": 1
         }
       ],
-      "name": "tou"
+      "name": "投"
     }
   ]
 
   let enemy_map = {
-    "w": {
+    "W": {
       hp: 10000,
       def: 100,
       speed: 1.2,
       mdef: 50
     },
-    "go": {
+    "狗": {
       hp: 1700,
       def: 0,
       speed: 1.9,
       mdef: 20
     },
-    "shuang": {
+    "双": {
       hp: 2000,
       def: 100,
       speed: 1.1,
       mdef: 0
     },
-    "tou": {
+    "投": {
       hp: 2000,
       def: 85,
       speed: 1,
@@ -1734,7 +1734,7 @@
       speed: 1,
       mdef: 0
     },
-    "liu": {
+    "流": {
       hp: 5000,
       def: 50,
       speed: 0.8,
@@ -1949,20 +1949,22 @@
   function get_damage( rand, is_skill, def ){
     let att = 446 - def
 
+    let prob = 0.2
+
     if(is_skill){
       let d = 0
-      if(rand() > 0.2){
+      if(rand() > prob){
         d = Math.floor(att * 1.4)
       }else{
         d = Math.floor(att * 1.4 * 1.6)
       }
-      if(rand() > 0.2){
+      if(rand() > prob){
         return d + Math.floor(att * 1.4)
       }else{
         return d + Math.floor(att * 1.4 * 1.6)
       }
     }else{
-      if(rand() > 0.2){
+      if(rand() > prob){
         return att
       }else{
         return Math.floor( att * 1.6 )
@@ -2048,7 +2050,7 @@
             enemy.row = row
             enemy.distance = enemy.distance - distance
 
-            if(enemy.name == 'tou' && enemy.att_frame > 2.2 * 30 && point_distance(enemy.col,enemy.row,7,2) <= 1.75){
+            if(enemy.name == '投' && enemy.att_frame > 2.2 * 30 && point_distance(enemy.col,enemy.row,7,2) <= 1.75){
               enemy.att_frame = 0
               enemy.status = 'att'
             }
@@ -2276,6 +2278,28 @@
       ctx.fillStyle="#fff"
       ctx.fillRect(0,0,1100,800)
       
+      {
+        ctx.fillStyle="#fcf1c1"
+        ctx.fillRect( 400,400,400,300 )
+
+        let x = 7 * 100 + 50
+        let y = 750 - 2 * 100
+        let red = [255,69,0]
+        let green = [202,255,112]
+
+        let hp_percent = 1 - ( position.kroos_hp / kroos_hp )
+        let r = Math.round( ( red[0] - green[0] ) * hp_percent + green[0])
+        let g = Math.round( ( red[1] - green[1] ) * hp_percent + green[1])
+        let b = Math.round( ( red[2] - green[2] ) * hp_percent + green[2])
+        ctx.fillStyle= "rgb("+r+","+g+","+b+")"
+        ctx.arc(x, y, 20 , 0 , Math.PI * 2,true)
+        ctx.fill()
+
+        ctx.fillStyle= '#000'
+        let text = ctx.measureText('kkdy')
+        ctx.fillText( 'kkdy' , x - text.width / 2 , y + 4)
+      }
+      
       for( let enemy of position.enemys ){
         if(enemy.status == 'die'){
           continue
@@ -2299,7 +2323,6 @@
         ctx.arc(x, y, 20 , 0 , Math.PI * 2,true)
         ctx.fill()
 
-
         ctx.fillStyle= '#000'
         let text = ctx.measureText(enemy.name)
         ctx.fillText(enemy.name, x - text.width / 2 , y + 4)
@@ -2314,18 +2337,25 @@
       })
     }
 
-    for( let position of position_list ){
-      update(position)
+    for( let frame in position_list ){
+      if(frame < 2400){
+        continue
+      }
+      update(position_list[frame])
       await tick()
-      // await tick()
+      //await tick()
+      //await tick()
+      //await tick()
     }
   }
 
   let random_seed = Math.floor( Math.random() * Math.pow(2,32) )
   print("seed:"+random_seed)
 
-  let list = simulate_seed( random_seed, true )
+  let list = simulate_seed( 3499075187, true )
   draw(list)
+
+  // simulate( 0 , 2000 )
 
 </script>
 
