@@ -1777,7 +1777,7 @@
     let hour = padding(now.getHours())
     let min = padding(now.getMinutes())
     let sec = padding(now.getSeconds())
-    str = hour + ':' + min + ':' + sec + ' ' + str
+    //str = hour + ':' + min + ':' + sec + ' ' + str
     let text_node = document.createTextNode(str)
     node.appendChild(text_node)
     pos.appendChild(node)
@@ -1797,7 +1797,7 @@
 
     let inext = 0;
     let inextp = 0;
-    let SeedArray = new Array(56);
+    let SeedArray = new Int32Array(56);
 
     function InternalSample() {
       let retVal;
@@ -1807,10 +1807,10 @@
       if (++locINext >= 56) locINext = 1;
       if (++locINextp >= 56) locINextp = 1;
 
-      retVal = SeedArray[locINext] - SeedArray[locINextp];
+      retVal = ( SeedArray[locINext] - SeedArray[locINextp] ) | 0;
 
       if (retVal == MBIG) retVal--;
-      if (retVal < 0) retVal += MBIG;
+      if (retVal < 0) retVal = ( retVal + MBIG ) | 0;
 
       SeedArray[locINext] = retVal;
 
@@ -1827,22 +1827,22 @@
       //Initialize our Seed array.
       //This algorithm comes from Numerical Recipes in C (2nd Ed.)
       let subtraction = (Seed == Int32_min) ? Int32_max : Math.abs(Seed);
-      mj = MSEED - subtraction;
-      SeedArray = new Array(56);
+      mj = ( MSEED - subtraction ) | 0;
+      SeedArray = new Int32Array(56);
       SeedArray[55] = mj;
       mk = 1;
       for (let i = 1; i < 55; i++) {
         //Apparently the range [1..55] is special (Knuth) and so we're wasting the 0'th position.
         ii = (21 * i) % 55;
         SeedArray[ii] = mk;
-        mk = mj - mk;
-        if (mk < 0) mk += MBIG;
+        mk = ( mj - mk ) | 0;
+        if (mk < 0) mk = ( mk + MBIG ) | 0;
         mj = SeedArray[ii];
       }
       for (let k = 1; k < 5; k++) {
         for (let i = 1; i < 56; i++) {
-          SeedArray[i] -= SeedArray[1 + (i + 30) % 55];
-          if (SeedArray[i] < 0) SeedArray[i] += MBIG;
+          SeedArray[i] = ( SeedArray[i] - SeedArray[1 + (i + 30) % 55] ) | 0;
+          if (SeedArray[i] < 0) SeedArray[i] = ( SeedArray[i] + MBIG ) | 0;
         }
       }
       inext = 0;
@@ -1957,7 +1957,7 @@
   function get_damage(rand, is_skill, def) {
     let att = 446 - def
 
-    let prob = 0.2
+    let prob = 1
 
     if (is_skill) {
       let d = 0
@@ -1980,6 +1980,8 @@
     }
   }
 
+  let att_map = new Array(30)
+
   function simulate_seed(seed, debug) {
     let rand = random(seed)
     let position = new_position()
@@ -1988,14 +1990,13 @@
     while (true) {
       position.frame++
 
-      if (debug == true) {
+      if (debug == true && position.frame % 5 == 0) {
         position_list.push(JSON.parse(JSON.stringify(position)))
       }
 
       let in_range_enemy = []
       let die_num = 0
 
-      // TODO make right frame
       if (position.frame == 3620) {
         for (let enemy of position.enemys) {
           if (enemy.status == 'die') {
@@ -2069,9 +2070,9 @@
               position.kroos_hp = position.kroos_hp - damage
               if (position.kroos_hp <= 0) {
                 if (debug) {
-                  return position_list
+                  // return position_list
                 }
-                return false
+                // return false
               }
             }
             if (enemy.att_frame == 45) {
@@ -2088,9 +2089,11 @@
               enemy.path_num++
               if (enemy.path_num >= enemy.path.length) {
                 if (debug) {
-                  return position_list
+                  //return position_list
                 }
-                return false
+                //return false
+                enemy.status = 'die'
+                break
               }
               let next_path = enemy.path[enemy.path_num]
 
@@ -2125,7 +2128,7 @@
 
         let enemy = position.enemys[position.kross_att_enemy]
 
-        if (enemy.status == 'die') {
+        if (enemy.status == 'die' && position.kroos_att_frame < 14) {
           position.kroos_att_frame = 30
         }
 
@@ -2165,12 +2168,23 @@
 
             let id = in_range_enemy[0]
             for (let i of in_range_enemy) {
+
+              att_map[i] = att_map[i] || 0
+              att_map[i] ++
+
               let old_dis = position.enemys[id].distance
               let new_dis = position.enemys[i].distance
-              if (new_dis <= old_dis) {
+              if (new_dis < old_dis) {
+                id = i
+              }else if(new_dis == old_dis && i > id){
                 id = i
               }
             }
+
+            if(position.frame > 3620){
+              console.log(id,position.frame)
+            }
+
             position.kross_att_enemy = id
 
             position.kroos_status = 'att'
@@ -2287,6 +2301,9 @@
       ctx.fillStyle = "#fff"
       ctx.fillRect(0, 0, 1100, 800)
 
+      ctx.fillStyle = "#000"
+      ctx.fillText( position.frame , 10, 10)
+
       {
         ctx.fillStyle = "#fcf1c1"
         ctx.fillRect(400, 400, 400, 300)
@@ -2296,6 +2313,7 @@
         let red = [255, 69, 0]
         let green = [202, 255, 112]
 
+        ctx.beginPath();
         let hp_percent = 1 - (position.kroos_hp / kroos_hp)
         let r = Math.round((red[0] - green[0]) * hp_percent + green[0])
         let g = Math.round((red[1] - green[1]) * hp_percent + green[1])
@@ -2359,7 +2377,10 @@
   let random_seed = Math.floor(Math.random() * Math.pow(2, 32))
   console.log("seed:", random_seed)
 
+  // simulate_seed(1561702343, true)
+
   draw(simulate_seed(random_seed, true))
+  console.log(att_map)
   // simulate( random_seed , random_seed + 10000 )
 
 </script>
